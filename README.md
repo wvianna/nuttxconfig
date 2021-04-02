@@ -1,8 +1,16 @@
-# nuttxconfig
+# Very simple config Nuttx Space and use 
 Create nuttxspace and config O.S. nuttx for esp32-devkitc
 
-#Steps
+##Steps
 
 1 - Run
 
-"./createnuttxspace.sh"
+"./nuttxspace.sh"
+
+
+2 - Select option in menu
+
+voila
+
+;-)
+
