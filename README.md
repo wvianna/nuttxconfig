@@ -29,4 +29,22 @@ voila
 
 ;-)
 
+Reference:
+https://www.embarcados.com.br/primeiros-passos-com-o-esp32-e-o-nuttx-parte-1/ 
+https://www.embarcados.com.br/blink-led-no-esp32-com-o-rtos-nuttx/
+
+Nuttx docs
+https://nuttx.apache.org/docs/latest/index.html
+https://cwiki.apache.org/confluence/display/NUTTX/NuttX
+
+NUTXX - YOUTBE
+https://www.youtube.com/channel/UC0QciIlcUnjJkL5yJJBmluw
+
+EXEMPLOS
+https://github.com/apache/incubator-nuttx-apps/tree/master/examples
+
+MASTER
+https://github.com/apache/incubator-nuttx-apps/tree/master/
+
+
 
