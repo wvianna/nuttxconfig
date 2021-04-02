@@ -7,8 +7,8 @@ dirNuttx=nuttxspace
 dirCurr=`pwd`
 dir=$dirCurr/$dirNuttx
 
-echo $dir
-sleep 5
+#echo $dir
+#sleep 5
 export PATH=$PATH:$dirCurr/$dirNuttx/xtensa-esp32-elf/bin
 
 #install dialog
@@ -71,8 +71,8 @@ createNuttxSpace()
 	echo "--> download particion table and bootloader for ESP32"
 	sleep 1￼
 	cd $dir
-	mkdir ../esp-bins
-	cd ../esp-bins
+	mkdir esp-bins
+	cd esp-bins
 	curl -L "https://github.com/espressif/esp-nuttx-bootloader/releases/download/latest/bootloader-esp32.bin" -o bootloader-esp32.bin
 	curl -L "https://github.com/espressif/esp-nuttx-bootloader/releases/download/latest/partition-table-esp32.bin" -o partition-table-esp32.bin
 	cd ../nuttx
