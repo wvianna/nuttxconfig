@@ -6,6 +6,7 @@
 dirNuttx=nuttxspace
 dirCurr=`pwd`
 dir=$dirCurr/$dirNuttx
+
 echo $dir
 sleep 5
 export PATH=$PATH:$dirCurr/$dirNuttx/xtensa-esp32-elf/bin
