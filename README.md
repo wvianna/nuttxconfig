@@ -1,7 +1,7 @@
 # Very simple config Nuttx Space and use 
 Create nuttxspace and config O.S. nuttx for esp32-devkitc
 
-RTOS NUTTX with MCU SP32
+RTOS NUTTX with MCU ESP32 (Nodemcu)
 
 Some options:
 Create RTOS Nuttx Space for ESP32;

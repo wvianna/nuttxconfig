@@ -72,8 +72,8 @@ createNuttxSpace()
 	cd $dir
 	mkdir ../esp-bins
 	cd ../esp-bins
-	curl -L "https://github.com/espressif/esp-nuttx-bootloader/releases/download/latest/bootloader-esp32.bin" -o ../esp-bins/bootloader-esp32.bin
-	curl -L "https://github.com/espressif/esp-nuttx-bootloader/releases/download/latest/partition-table-esp32.bin" -o ../esp-bins/partition-table-esp32.bin
+	curl -L "https://github.com/espressif/esp-nuttx-bootloader/releases/download/latest/bootloader-esp32.bin" -o bootloader-esp32.bin
+	curl -L "https://github.com/espressif/esp-nuttx-bootloader/releases/download/latest/partition-table-esp32.bin" -o partition-table-esp32.bin
 	cd ../nuttx
 
 	echo "type RETURN"
