@@ -191,7 +191,6 @@ do
 		selectconfig 'Select ready configuration'\
 		builddownload 'Build and download for ESP32'\
 		menuconfig 'Load menuconfig Nuttx'\
-		teste 'descricao'\
 		)
 
 	[ $? -eq 1 ] && break
