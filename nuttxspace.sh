@@ -217,6 +217,23 @@ serialShell()
 
 }
 
+configBackup()
+{
+	clear
+	date=`date +"%Y-%m-%d-_%H:%M:%S"`
+	file=config.$date
+	echo "########################################################"
+	echo "create file $file in $dir with last configuration "
+	echo "########################################################"
+	sleep 3
+	cd $dir && mkdir backup.config
+	cp $dir/nuttx/.config backup.config/$file && echo "arquivo criado"
+	echo "type RETURN"
+	read a
+	cd $dir/nutts
+
+}
+
 helpConfig()
 {
 	dialog --msgbox 'Basics steps for configuration, build, download and access shell nsh in ESP32:
@@ -239,6 +256,7 @@ do
 		builddownload 'Build and download for ESP32'\
 		menuconfig 'Load menuconfig Nuttx'\
 		serialshell 'access shell nsh in ESP32'\
+		configbackup 'Create a config.DATE in directory backup.config'\
 		helpconfig 'Show help with configuration steps'\
 		)
 
@@ -271,6 +289,9 @@ do
 		;;
 	serialshell)
 		serialShell
+		;;
+	configbackup)
+		configBackup
 		;;
 	helpconfig)
 		helpConfig
