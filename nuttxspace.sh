@@ -8,8 +8,6 @@ dirCurr=`pwd`
 dir=$dirCurr/$dirNuttx
 serial=/dev/ttyUSB0
 
-#permission for serial
-newgrp dialout
 
 if [ "`which sudo`" == "" ]
 then
@@ -17,15 +15,30 @@ then
 	echo " "
 	echo "install sudo"
 	echo "  "
-	echo "#apt install sudo"
+	echo "COMMAND: #apt install sudo"
 	echo "  "
 	echo "add `whoami` in grup sudo"
 	echo "  "
-	echo "#usermod -aG sudo `whoami`"
+	echo "COMMAND: #usermod -aG sudo `whoami`"
 	echo "  "
 	echo "after try again"
 	echo "  "
 	echo "######################################"
+	exit 1
+fi
+
+if [ "`groups|grep dialout`" == "" ]
+then
+	echo "#######################################"
+	echo "  "
+	echo "add user `whoami` in grup dialout"
+	echo "  "
+	echo "COMMAND: \$sudo gpasswd -a `whoami` dialout"
+	echo "  "
+	echo "after login again"
+	echo "  "
+	echo "#######################################"
+	exit 1
 fi
 
 #echo $dir
