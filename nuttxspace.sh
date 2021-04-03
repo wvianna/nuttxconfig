@@ -217,6 +217,16 @@ serialShell()
 
 }
 
+helpConfig()
+{
+	dialog --msgbox 'Basics steps for configuration, build, download and access shell nsh in ESP32:
+	1 - create --> create work space nuttx for ESP32;
+	2 - selectconfig --> use option nsh
+	3 - connect --> connect ESP32-devkit (NODEMCU) to the PC using the usb port
+	4 - builddownload --> build and download RTOS
+	5 - serialshell --> access shell nsh by serial' 12 80 
+}
+
 while true
 do
 	option=$(dialog --stdout --menu 'Select options:' 0 0 0 \
@@ -228,7 +238,8 @@ do
 		selectconfig 'Select ready configuration'\
 		builddownload 'Build and download for ESP32'\
 		menuconfig 'Load menuconfig Nuttx'\
-		serialshell 'Connect shell nsh in ESP32'\
+		serialshell 'access shell nsh in ESP32'\
+		helpconfig 'Show help with configuration steps'\
 		)
 
 	[ $? -eq 1 ] && break
@@ -260,6 +271,9 @@ do
 		;;
 	serialshell)
 		serialShell
+		;;
+	helpconfig)
+		helpConfig
 		;;
 	
 	*)
