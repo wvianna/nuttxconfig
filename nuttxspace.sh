@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 #Reference: https://www.embarcados.com.br/primeiros-passos-com-o-esp32-e-o-nuttx-parte-1/
 
