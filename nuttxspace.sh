@@ -118,7 +118,7 @@ distClean()
 	echo "remove configuration"
 	echo "########################################################"
 	sleep 2
-	cd $dir
+	cd $dir/nuttx
 	make -j4 distclean
 	echo "type RETURN"
 	read a
