@@ -29,6 +29,9 @@ voila
 
 ;-)
 
+
+![alt text](https://github.com/wvianna/nuttxconfig/blob/main/img/menu.png)
+
 Reference:
 https://www.embarcados.com.br/primeiros-passos-com-o-esp32-e-o-nuttx-parte-1/ 
 https://www.embarcados.com.br/blink-led-no-esp32-com-o-rtos-nuttx/
