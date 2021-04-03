@@ -6,6 +6,7 @@
 dirNuttx=nuttxspace
 dirCurr=`pwd`
 dir=$dirCurr/$dirNuttx
+serial=/dev/ttyUSB0
 
 #echo $dir
 #sleep 5
@@ -136,6 +137,7 @@ clean()
 }
 
 
+
 selectConfig()
 {
 
@@ -180,7 +182,7 @@ buildDownload()
 		sleep 1
 		cd $dir/nuttx
 		sleep 2
-		make download ESPTOOL_PORT=/dev/ttyUSB0 #ESPTOOL_BAUD=115200 ESPTOOL_BINDIR=../esp-bins
+		make download ESPTOOL_PORT=$serial #ESPTOOL_BAUD=115200 ESPTOOL_BINDIR=../esp-bins
 	else
 		echo "########################################################"
 		echo "Select a configuration in menu selectconfig"
@@ -202,6 +204,19 @@ menuConfig()
 }
 
 
+serialShell()
+{
+	clear
+	echo "########################################################"
+	echo "connect shell nsh $serial. EXIT = Crtl + A + X "
+	echo "########################################################"
+	sleep 2
+	picocom $serial -b 115200
+	echo "type RETURN"
+	read a
+
+}
+
 while true
 do
 	option=$(dialog --stdout --menu 'Select options:' 0 0 0 \
@@ -213,6 +228,7 @@ do
 		selectconfig 'Select ready configuration'\
 		builddownload 'Build and download for ESP32'\
 		menuconfig 'Load menuconfig Nuttx'\
+		serialshell 'Connect shell nsh in ESP32'\
 		)
 
 	[ $? -eq 1 ] && break
@@ -241,6 +257,9 @@ do
 		;;
 	menuconfig)
 		menuConfig
+		;;
+	serialshell)
+		serialShell
 		;;
 	
 	*)
