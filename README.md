@@ -40,6 +40,7 @@ voila
 ![alt text](https://github.com/wvianna/nuttxconfig/blob/main/img/help.png)
 ---------------------------------------------------
 
+This code was tested on Debian 10 Netinst, Ubuntu 20 and Kali 20
 
 References
 https://www.embarcados.com.br/primeiros-passos-com-o-esp32-e-o-nuttx-parte-1/ 
