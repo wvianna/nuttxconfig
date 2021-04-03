@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 #Reference: https://www.embarcados.com.br/primeiros-passos-com-o-esp32-e-o-nuttx-parte-1/
 
@@ -7,6 +7,23 @@ dirNuttx=nuttxspace
 dirCurr=`pwd`
 dir=$dirCurr/$dirNuttx
 serial=/dev/ttyUSB0
+
+if [ "`which sudo`" == "" ]
+then
+	echo "######################################"
+	echo " "
+	echo "install sudo"
+	echo "  "
+	echo "#apt install sudo"
+	echo "  "
+	echo "add `whoami` in grup sudo"
+	echo "  "
+	echo "#usermod -aG sudo `whoami`"
+	echo "  "
+	echo "after try again"
+	echo "  "
+	echo "######################################"
+fi
 
 #echo $dir
 #sleep 5
@@ -18,7 +35,7 @@ then
 	sudo apt update
 	sudo apt install dialog -y
 fi
-	
+
 createNuttxSpace()
 {
 	echo "################################################################"
