@@ -12,7 +12,10 @@ Some options:
 - Remove bins;
 - Select ready configuration;
 - Build and download for ESP32;
-- Load menuconfig Nuttx
+- Load menuconfig Nuttx;
+- Access shell nsh in ESP32;
+- Create a config.DATE in directory backup.config;
+- Show help with configuration steps.
 
 ----------------------------------------------------
 Steps
