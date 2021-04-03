@@ -8,6 +8,9 @@ dirCurr=`pwd`
 dir=$dirCurr/$dirNuttx
 serial=/dev/ttyUSB0
 
+#permission for serial
+newgrp dialout
+
 if [ "`which sudo`" == "" ]
 then
 	echo "######################################"
