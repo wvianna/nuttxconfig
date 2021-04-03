@@ -229,7 +229,7 @@ helpConfig()
 
 while true
 do
-	option=$(dialog --stdout --menu 'Select options:' 0 0 0 \
+	option=$(dialog --stdout --title "Very simple NUTTX for ESP32" --menu 'Select options (see helpconfig):' 0 0 0 \
 		create    'Create RTOS Nuttx Space for ESP32'\
 		delete    'Delete Nuttx Space'\
 		update    'Update nuttx and apps'\
