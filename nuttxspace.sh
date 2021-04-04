@@ -267,7 +267,7 @@ configBackup()
 	echo "create file $file in $dir with last configuration "
 	echo "########################################################"
 	sleep 3
-	cd $dir && mkdir backup.config
+	cd $dir && mkdir backup.config 2> /dev/null
 	cp $dir/nuttx/.config backup.config/$file && echo "arquivo criado"
 	echo "type RETURN"
 	read a
