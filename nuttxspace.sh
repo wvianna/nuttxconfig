@@ -240,6 +240,8 @@ menuConfig()
 	sleep 1
 	cd $dir/nuttx
 	make menuconfig
+	echo "type RETURN"
+	read a
 }
 
 
