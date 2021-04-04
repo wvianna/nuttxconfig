@@ -2,6 +2,7 @@
 
 #Reference: https://www.embarcados.com.br/primeiros-passos-com-o-esp32-e-o-nuttx-parte-1/
 
+
 #vars shell script
 dirNuttx=nuttxspace
 dirCurr=`pwd`
@@ -27,15 +28,20 @@ then
 	exit 1
 fi
 
+
 if [ "`groups|grep dialout`" == "" ]
 then
 	echo "#######################################"
 	echo "  "
-	echo "add user `whoami` in grup dialout"
+	echo "add user `whoami` in group dialout"
 	echo "  "
 	echo "COMMAND: \$sudo gpasswd -a `whoami` dialout"
 	echo "  "
 	echo "after login again"
+	echo "  "
+	echo " OR"
+	echo "  "
+	echo "COMANDO: \$newgrp dialout "
 	echo "  "
 	echo "#######################################"
 	exit 1
@@ -288,7 +294,7 @@ do
 		selectconfig 'Select ready configuration'\
 		builddownload 'Build and download for ESP32'\
 		menuconfig 'Load menuconfig Nuttx'\
-		serialshell 'access shell nsh in ESP32'\
+		serialshell 'access shell nsh in ESP32 by '$serial\
 		configbackup 'Create a config.DATE in directory backup.config'\
 		helpconfig 'Show help with configuration steps'\
 		)
