@@ -270,12 +270,12 @@ while true
 do
 	option=$(dialog --stdout --title "Very simple NUTTX for ESP32" --menu 'Select options (see helpconfig):' 0 0 0 \
 		create    'Create RTOS Nuttx Space for ESP32'\
-		delete    'Delete Nuttx Space'\
-		update    'Update nuttx and apps'\
+		delete    'Delete Nuttx Space in '$dir\
+		update    'Update nuttx and apps (git pull)'\
 		distclean 'Remove configuration'\
 		clean     'Remove bins'\
 		selectconfig 'Select ready configuration'\
-		builddownload 'Build and download for ESP32'\
+		builddownload 'Build and download for ESP32 --> connect ESP32'\
 		menuconfig 'Load menuconfig Nuttx'\
 		serialshell 'Access shell nsh in ESP32 by '$serial\
 		backupconfig 'Create a config.DATE in directory backup.config'\
