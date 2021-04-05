@@ -205,11 +205,11 @@ selectConfig()
 
 buildDownload()
 {
-	if [ "$config" != "" ]
+	if [ "$config" != "" ] | [ -e $dir/nuttx/.config ]
 	then
 		message "build and download configuration $config"
 		cd $dir/nuttx
-		make download ESPTOOL_PORT=$serial #ESPTOOL_BAUD=115200 ESPTOOL_BINDIR=../esp-bins
+		make download ESPTOOL_PORT=$serial ESPTOOL_BINDIR=../esp-bins #ESPTOOL_BAUD=115200
 	else
 		message "Select a configuration in menu selectconfig"
 	fi
@@ -221,6 +221,7 @@ menuConfig()
 	message "make menuconfig"
 	cd $dir/nuttx
 	make menuconfig
+	config="owner"
 	pause
 }
 
