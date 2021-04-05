@@ -9,7 +9,7 @@ dirCurr=`pwd`
 dir=$dirCurr/$dirNuttx
 serial=/dev/ttyUSB0
 
-
+#test sudo
 if [ "`which sudo`" == "" ]
 then
 	echo "######################################"
@@ -28,7 +28,7 @@ then
 	exit 1
 fi
 
-
+#test dialout
 if [ "`groups|grep dialout`" == "" ]
 then
 	echo "#######################################"
@@ -47,8 +47,6 @@ then
 	exit 1
 fi
 
-#echo $dir
-#sleep 5
 export PATH=$PATH:$dirCurr/$dirNuttx/xtensa-esp32-elf/bin
 
 #install dialog
@@ -58,94 +56,100 @@ then
 	sudo apt install dialog -y
 fi
 
+message()
+{
+	clear
+	echo "##################################################################"
+	echo "# "
+	echo "# $1"
+	echo "# "
+	echo "##################################################################"
+	sleep 2
+}
+
+pause()
+{
+	echo "##################################################################"
+	echo "------>                    type RETURN                    <-------"
+	echo "##################################################################"
+	read a
+	clear
+}
+
+
 createNuttxSpace()
 {
-	echo "################################################################"
-	echo " "
-	echo "Create RTOS Nuttx configuration space on Ubuntu for use in esp32-devkit"
-	echo " "
-	echo "################################################################"
-	sleep 2
 
 	if [ -d $dirNuttx ]
 	then
-		echo "########################################################"
-		echo "there is nuttxspace directory "
-		echo "if you want to recreate delete the $ dirNuttx directory"
-		echo "TYPE RETURN"
-		echo "#######################################################"
-		read a
+		message "there is nuttxspace directory. If you want to recreate delete the $dirNuttx directory"
+		pause
+		#echo "type RETURN"
+		#read a
 		return
 	else
+		message "Create RTOS Nuttx configuration space on Ubuntu for use in esp32-devkit"
 		mkdir $dirNuttx && cd $dirNuttx
-	fi
 
-	echo "--> udpate apt and install packages"
-	sleep 1
-	sudo apt update	
-	#sudo apt upgrade
-	sudo apt install automake bison build-essential flex gperf git libncurses5-dev libtool libusb-dev  pkg-config kconfig-frontends curl picocom dialog -y
-
-	echo "--> clone git nuttx and apps"
-	sleep 1
-	git clone https://github.com/apache/incubator-nuttx.git nuttx
-	git clone https://github.com/apache/incubator-nuttx-apps.git apps
-
-	echo "--> download cross compiler for ESP32"
-	sleep 1
-	curl https://dl.espressif.com/dl/xtensa-esp32-elf-gcc8_2_0-esp-2020r2-linux-amd64.tar.gz | tar -xz
-
-	export PATH=$PATH:$dirCurr/$dirNuttx/xtensa-esp32-elf/bin
-
-	if [ -e /usr/bin/esptool.py ]
-	then
-		echo "--> there is ESP8266 and ESP32 Bootloader Utility"
+		echo "--> udpate apt and install packages"
 		sleep 1
-	else
-		echo "--> install ESP8266 and ESP32 ROM Bootloader Utility"
+		sudo apt update	
+		#sudo apt upgrade
+		sudo apt install automake bison build-essential flex gperf git libncurses5-dev libtool libusb-dev  pkg-config kconfig-frontends curl picocom dialog -y
+
+		echo "--> clone git nuttx and apps"
 		sleep 1
-		sudo apt install esptool -y
-		sudo ln -s ../share/esptool/esptool.py /usr/bin/esptool.py
+		git clone https://github.com/apache/incubator-nuttx.git nuttx
+		git clone https://github.com/apache/incubator-nuttx-apps.git apps
+
+		echo "--> download cross compiler for ESP32"
+		sleep 1
+		curl https://dl.espressif.com/dl/xtensa-esp32-elf-gcc8_2_0-esp-2020r2-linux-amd64.tar.gz | tar -xz
+
+		export PATH=$PATH:$dirCurr/$dirNuttx/xtensa-esp32-elf/bin
+
+		if [ -e /usr/bin/esptool.py ]
+		then
+			echo "--> there is ESP8266 and ESP32 Bootloader Utility"
+			sleep 1
+		else
+			echo "--> install ESP8266 and ESP32 ROM Bootloader Utility"
+			sleep 1
+			sudo apt install esptool -y
+			sudo ln -s ../share/esptool/esptool.py /usr/bin/esptool.py
+		fi
+
+		echo "--> download particion table and bootloader for ESP32"
+		sleep 1￼
+		cd $dir
+		mkdir esp-bins
+		cd esp-bins
+		curl -L "https://github.com/espressif/esp-nuttx-bootloader/releases/download/latest/bootloader-esp32.bin" -o bootloader-esp32.bin
+		curl -L "https://github.com/espressif/esp-nuttx-bootloader/releases/download/latest/partition-table-esp32.bin" -o partition-table-esp32.bin
+		cd ../nuttx
+		pause
+
 	fi
-
-	echo "--> download particion table and bootloader for ESP32"
-	sleep 1￼
-	cd $dir
-	mkdir esp-bins
-	cd esp-bins
-	curl -L "https://github.com/espressif/esp-nuttx-bootloader/releases/download/latest/bootloader-esp32.bin" -o bootloader-esp32.bin
-	curl -L "https://github.com/espressif/esp-nuttx-bootloader/releases/download/latest/partition-table-esp32.bin" -o partition-table-esp32.bin
-	cd ../nuttx
-
-	echo "type RETURN"
-	read a
 }
 
 
 updateNuttxSpace()
 {
 	
-	echo "########################################################"
-	echo "update apps and nuttx in $dir"
-	echo "########################################################"
-	sleep 2
+	message "update apps and nuttx in $dir"
 	cd $dir
 	cd nuttx
 	git pull
 	cd ../apps
 	git pull
 	cd $dir
-	echo "type RETURN"
-	read a
+	pause
 }
 
 deleteNuttxSpace()
 {
 	
-	echo "########################################################"
-	echo "delete $dirNuttx"
-	echo "########################################################"
-	sleep 2
+	message "delete $dirNuttx"
 	cd $dirCurr
 	rm -rf $dirNuttx
 }
@@ -153,26 +157,18 @@ deleteNuttxSpace()
 distClean()
 {
 	
-	echo "########################################################"
-	echo "remove configuration"
-	echo "########################################################"
-	sleep 2
+	message "remove configuration"
 	cd $dir/nuttx
 	make -j4 distclean
-	echo "type RETURN"
-	read a
+	pause
 }
 
 clean()
 {
-	echo "########################################################"
-	echo "remove configuration"
-	echo "########################################################"
-	sleep 2
+	message "remove configuration"
 	cd $dir/nuttx
 	make -j4 clean
-	echo "type RETURN"
-	read a
+	pause
 }
 
 
@@ -180,10 +176,7 @@ clean()
 selectConfig()
 {
 
-	echo "########################################################"
-	echo "select ready configuration for ESP32"
-	echo "########################################################"
-	sleep 1
+	message "select ready configuration for ESP32"
 
 	declare -a array
 	 i=1
@@ -206,8 +199,7 @@ selectConfig()
 	cd $dir
 	cd nuttx
 	./tools/configure.sh esp32-devkitc:$config
-	echo "type RETURN"
-	read a
+	pause
 
 }
 
@@ -215,63 +207,42 @@ buildDownload()
 {
 	if [ "$config" != "" ]
 	then
-		echo "########################################################"
-		echo "build and download configuration $config"
-		echo "########################################################"
-		sleep 1
+		message "build and download configuration $config"
 		cd $dir/nuttx
-		sleep 2
 		make download ESPTOOL_PORT=$serial #ESPTOOL_BAUD=115200 ESPTOOL_BINDIR=../esp-bins
 	else
-		echo "########################################################"
-		echo "Select a configuration in menu selectconfig"
-		echo "########################################################"
-		sleep 2
+		message "Select a configuration in menu selectconfig"
 	fi
-	echo "type RETURN"
-	read a
+	pause
 }
 
 menuConfig()
 {
-	echo "########################################################"
-	echo "make menuconfig"
-	echo "########################################################"
-	sleep 1
+	message "make menuconfig"
 	cd $dir/nuttx
 	make menuconfig
-	echo "type RETURN"
-	read a
+	pause
 }
 
 
 serialShell()
 {
-	clear
-	echo "########################################################"
-	echo "connect shell nsh $serial. EXIT = Crtl + A + X "
-	echo "########################################################"
-	sleep 2
+	message "connect shell nsh $serial. EXIT = Crtl + A + X "
 	picocom $serial -b 115200
-	echo "type RETURN"
-	read a
+	pause
 
 }
 
-configBackup()
+backupConfig()
 {
 	clear
 	date=`date +"%Y-%m-%d-_%H:%M:%S"`
 	file=config.$date
-	echo "########################################################"
-	echo "create file $file in $dir with last configuration "
-	echo "########################################################"
-	sleep 3
-	cd $dir && mkdir backup.config 2> /dev/null
+	message "create file $file in $dir with last configuration "
+	cd $dirCurr && mkdir backup.config 2> /dev/null
 	cp $dir/nuttx/.config backup.config/$file && echo "arquivo criado"
-	echo "type RETURN"
-	read a
-	cd $dir/nutts
+	cd $dir/nuttx
+	pause
 
 }
 
@@ -283,6 +254,7 @@ helpConfig()
 	3 - connect --> connect ESP32-devkit (NODEMCU) to the PC using the usb port
 	4 - builddownload --> build and download RTOS
 	5 - serialshell --> access shell nsh by serial' 12 80 
+
 }
 
 while true
@@ -297,7 +269,7 @@ do
 		builddownload 'Build and download for ESP32'\
 		menuconfig 'Load menuconfig Nuttx'\
 		serialshell 'access shell nsh in ESP32 by '$serial\
-		configbackup 'Create a config.DATE in directory backup.config'\
+		backupconfig 'Create a config.DATE in directory backup.config'\
 		helpconfig 'Show help with configuration steps'\
 		)
 
@@ -331,8 +303,8 @@ do
 	serialshell)
 		serialShell
 		;;
-	configbackup)
-		configBackup
+	backupconfig)
+		backupConfig
 		;;
 	helpconfig)
 		helpConfig
