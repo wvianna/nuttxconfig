@@ -240,10 +240,18 @@ backupConfig()
 	file=config.$date
 	message "create file $file in $dir with last configuration "
 	cd $dirCurr && mkdir backup.config 2> /dev/null
-	cp $dir/nuttx/.config backup.config/$file && echo "arquivo criado"
+	cp -v $dir/nuttx/.config backup.config/$file && echo "arquivo criado"
 	cd $dir/nuttx
 	pause
 
+}
+
+restoreConfig()
+{
+	cd $dirCurr/backup.config && lastconfig=`ls|tail -n 1`
+	message "restore last config $lastconfig" in file $dir/nuttx/.config
+        cp -v $lastconfig $dir/nuttx/.config
+	pause
 }
 
 helpConfig()
@@ -268,8 +276,9 @@ do
 		selectconfig 'Select ready configuration'\
 		builddownload 'Build and download for ESP32'\
 		menuconfig 'Load menuconfig Nuttx'\
-		serialshell 'access shell nsh in ESP32 by '$serial\
+		serialshell 'Access shell nsh in ESP32 by '$serial\
 		backupconfig 'Create a config.DATE in directory backup.config'\
+		restoreconfig 'Restore last configuration in directory backup.config'\
 		helpconfig 'Show help with configuration steps'\
 		)
 
@@ -305,6 +314,9 @@ do
 		;;
 	backupconfig)
 		backupConfig
+		;;
+	restoreconfig)
+		restoreConfig
 		;;
 	helpconfig)
 		helpConfig
