@@ -260,7 +260,7 @@ helpConfig()
 	dialog --msgbox 'Basics steps for configuration, build, download and access shell nsh in ESP32:
 	1 - create --> create work space nuttx for ESP32;
 	2 - selectconfig --> use option nsh
-	3 - connect --> connect ESP32-devkit (NODEMCU) to the PC using the usb port
+	3 - connect --> connect ESP32-devkit to the PC using the usb port
 	4 - builddownload --> build and download RTOS
 	5 - serialshell --> access shell nsh by serial' 12 80 
 
