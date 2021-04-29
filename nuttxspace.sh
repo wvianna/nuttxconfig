@@ -209,7 +209,7 @@ buildDownload()
 	then
 		message "build and download configuration $config"
 		cd $dir/nuttx
-		make download ESPTOOL_PORT=$serial ESPTOOL_BINDIR=../esp-bins #ESPTOOL_BAUD=115200
+		make download ESPTOOL_PORT=$serial ESPTOOL_BINDIR=../esp-bins ESPTOOL_BAUD=115200
 	else
 		message "Select a configuration in menu selectconfig"
 	fi
